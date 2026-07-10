@@ -1,0 +1,17 @@
+{
+  "name": "alpha-scout",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "bun --cwd frontend dev",
+    "build": "bun --cwd frontend build",
+    "build:dev": "bun --cwd frontend build:dev",
+    "preview": "bun --cwd frontend preview",
+    "lint": "bun --cwd frontend lint",
+    "server": "bun --cwd backend start"
+  }
+}

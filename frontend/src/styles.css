@@ -1,0 +1,161 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * NEO-BRUTALIST DESIGN SYSTEM
+ * Brand hex values are intentional and locked:
+ *   Yellow #ffe17c · Charcoal #171e19 · Sage #b7c6c2 · Star #ffbc2e
+ * All borders 2px solid black, all shadows 0 blur.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand tokens */
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-brand: #ffe17c;
+  --color-charcoal: #171e19;
+  --color-sage: #b7c6c2;
+  --color-star: #ffbc2e;
+  --color-graphite: #272727;
+
+  --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #171e19;
+  --primary-foreground: #ffffff;
+  --secondary: #ffe17c;
+  --secondary-foreground: #000000;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --accent: #b7c6c2;
+  --accent-foreground: #000000;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #000000;
+  --input: #000000;
+  --ring: #171e19;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* ---- Hard shadows (0 blur) ---- */
+@utility shadow-hard {
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+@utility shadow-hard-lg {
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+@utility shadow-hard-xl {
+  box-shadow: 12px 12px 0px 0px #000000;
+}
+
+/* ---- Physical push interaction ---- */
+@utility neo-press {
+  box-shadow: 4px 4px 0px 0px #000000;
+  transition:
+    transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #000000;
+  }
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #000000;
+  }
+}
+@utility neo-press-lg {
+  box-shadow: 8px 8px 0px 0px #000000;
+  transition:
+    transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    transform: translate(4px, 4px);
+    box-shadow: 4px 4px 0px 0px #000000;
+  }
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: 4px 4px 0px 0px #000000;
+  }
+}
+
+/* ---- Radial dot pattern (10% opacity) ---- */
+@utility dot-grid {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 2px);
+  background-size: 32px 32px;
+}
+
+/* ---- Marquee ---- */
+@keyframes neo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@utility animate-marquee {
+  animation: neo-marquee 30s linear infinite;
+}
