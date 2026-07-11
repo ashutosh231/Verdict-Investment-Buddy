@@ -7,7 +7,7 @@ import "dotenv/config";
 export const env = {
   PORT: process.env.PORT || 5000,
   NODE_ENV: process.env.NODE_ENV || "development",
-  DATABASE_URL: process.env.DATABASE_URL,
+  MONGODB_URI: process.env.MONGODB_URI,
   JWT_SECRET: process.env.JWT_SECRET,
   CORS_ORIGIN: process.env.CORS_ORIGIN || "*",
   FINNHUB_API_KEY: process.env.FINNHUB_API_KEY,

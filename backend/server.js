@@ -7,7 +7,7 @@ async function start() {
   try {
     await connectDB();
   } catch (err) {
-    console.error("Failed to connect to MySQL", err);
+    console.error("Failed to connect to MongoDB", err);
     process.exit(1);
   }
 

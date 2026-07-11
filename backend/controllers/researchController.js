@@ -1,4 +1,4 @@
-import { prisma } from "../config/prisma.js";
+import Verdict from "../models/Verdict.js";
 import { runResearch } from "../services/investmentAgent.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { parseUserId } from "../utils/userId.js";
@@ -23,15 +23,13 @@ export const research = asyncHandler(async (req, res) => {
 
   // Persist the verdict for this user (best-effort).
   try {
-    await prisma.verdict.create({
-      data: {
-        userId: parseUserId(req.user.sub),
-        company: verdict.company,
-        decision: verdict.decision,
-        confidence: verdict.confidence,
-        riskLevel: verdict.riskLevel,
-        verdict,
-      },
+    await Verdict.create({
+      userId: parseUserId(req.user.sub),
+      company: verdict.company,
+      decision: verdict.decision,
+      confidence: verdict.confidence,
+      riskLevel: verdict.riskLevel,
+      verdict,
     });
   } catch (persistErr) {
     console.error("verdict persist error", persistErr);
@@ -42,14 +40,13 @@ export const research = asyncHandler(async (req, res) => {
 
 export const history = asyncHandler(async (req, res) => {
   try {
-    const rows = await prisma.verdict.findMany({
-      where: { userId: parseUserId(req.user.sub) },
-      orderBy: { createdAt: "desc" },
-      take: 20,
-    });
+    const rows = await Verdict.find({ userId: parseUserId(req.user.sub) })
+      .sort({ createdAt: -1 })
+      .limit(20)
+      .lean();
 
     const history = rows.map((r) => ({
-      id: String(r.id),
+      id: r._id.toString(),
       company: r.company,
       decision: r.decision,
       confidence: r.confidence,

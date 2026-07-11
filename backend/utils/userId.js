@@ -1,7 +1,9 @@
-/** Parse JWT subject into a numeric user id for relational queries. */
+import mongoose from "mongoose";
+
+/** Validate JWT subject as a MongoDB ObjectId string. */
 export function parseUserId(sub) {
-  const id = Number.parseInt(String(sub), 10);
-  if (!Number.isInteger(id) || id <= 0) {
+  const id = String(sub);
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     throw new Error("Invalid user id");
   }
   return id;

@@ -1,19 +1,18 @@
-import { prisma } from "./prisma.js";
+import mongoose from "mongoose";
 
 /**
- * Connect to MySQL via Prisma.
- * A single client is reused across the process lifetime.
+ * Connect to MongoDB Atlas via Mongoose.
  */
 export async function connectDB() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("Missing DATABASE_URL");
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error("Missing MONGODB_URI");
   }
 
-  await prisma.$connect();
-  console.log("MySQL connected");
-  return prisma;
+  await mongoose.connect(uri);
+  console.log("MongoDB connected");
 }
 
 export async function disconnectDB() {
-  await prisma.$disconnect();
+  await mongoose.disconnect();
 }
